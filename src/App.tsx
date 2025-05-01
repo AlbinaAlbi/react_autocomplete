@@ -13,10 +13,10 @@ import { DropdownMenu } from './components/DropdownMenu/DropdownMenu';
 import { Dropdown } from './components/Dropdown/Dropdown';
 
 type Props = {
-  debounceDeley: number;
+  debounceDelay: number;
 };
 
-export const App: React.FC<Props> = ({ debounceDeley = 300 }) => {
+export const App: React.FC<Props> = ({ debounceDelay = 300 }) => {
   const [peoples] = useState(peopleFromServer);
   const [selectPeople, setSelectPeople] = useState<Person | null>(null);
 
@@ -35,7 +35,7 @@ export const App: React.FC<Props> = ({ debounceDeley = 300 }) => {
         setAppliedInputValue(value);
         previousInputValue.current = value;
       }
-    }, debounceDeley),
+    }, debounceDelay),
   ).current;
 
   const handleInputChange = (event: ChangeEvent<HTMLInputElement>) => {

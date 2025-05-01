@@ -4,17 +4,17 @@ import { Person } from '../../types/Person';
 type DropdownItemProps = {
   people: Person;
   handleSelectPerson: (people: Person) => void;
-  key: number;
+  index: number;
 };
 
 export const DropdownItem: React.FC<DropdownItemProps> = ({
   people,
   handleSelectPerson,
-  key,
+  index,
 }) => {
   return (
     <div
-      key={key}
+      key={index}
       className="dropdown-item"
       data-cy="suggestion-item"
       onClick={() => handleSelectPerson(people)}
