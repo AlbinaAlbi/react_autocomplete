@@ -1,6 +1,5 @@
 import React, {
   ChangeEvent,
-  useCallback,
   useEffect,
   useMemo,
   useRef,
@@ -13,13 +12,9 @@ import { Person } from './types/Person';
 
 type Props = {
   debounceDeley: number;
-  onSelected?: (person: Person) => void;
 };
 
-export const App: React.FC<Props> = ({
-  debounceDeley = 300,
-  onSelected = () => {},
-}) => {
+export const App: React.FC<Props> = ({ debounceDeley = 300 }) => {
   const [peoples] = useState(peopleFromServer);
   const [inputValue, setInputValue] = useState('');
   const [appliedInputValue, setAppliedInputValue] = useState('');
