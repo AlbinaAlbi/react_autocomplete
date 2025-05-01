@@ -10,6 +10,7 @@ import { peopleFromServer } from './data/people';
 import debounce from 'lodash.debounce';
 import { Person } from './types/Person';
 import { DropdownMenu } from './components/DropdownMenu/DropdownMenu';
+import { Dropdown } from './components/Dropdown/Dropdown';
 
 type Props = {
   debounceDeley: number;
@@ -17,14 +18,14 @@ type Props = {
 
 export const App: React.FC<Props> = ({ debounceDeley = 300 }) => {
   const [peoples] = useState(peopleFromServer);
+  const [selectPeople, setSelectPeople] = useState<Person | null>(null);
+
   const [inputValue, setInputValue] = useState('');
   const [appliedInputValue, setAppliedInputValue] = useState('');
-
   const previousInputValue = useRef('');
 
   const [noMatchingSuggestions, setNoMatchingSuggestions] = useState(false);
   const [isFocus, setIsFocus] = useState(false);
-  const [selectPeople, setSelectPeople] = useState<Person | null>(null);
 
   const { name, born, died } = selectPeople || {};
 
@@ -86,17 +87,11 @@ export const App: React.FC<Props> = ({ debounceDeley = 300 }) => {
         </h1>
 
         <div className="dropdown is-active">
-          <div className="dropdown-trigger">
-            <input
-              type="text"
-              placeholder="Enter a part of the name"
-              className="input"
-              data-cy="search-input"
-              value={inputValue}
-              onFocus={() => setIsFocus(true)}
-              onChange={handleInputChange}
-            />
-          </div>
+          <Dropdown
+            inputValue={inputValue}
+            setIsFocus={setIsFocus}
+            handleInputChange={handleInputChange}
+          />
 
           <DropdownMenu
             handleSelectPerson={handleSelectPerson}
