@@ -9,6 +9,7 @@ import './App.scss';
 import { peopleFromServer } from './data/people';
 import debounce from 'lodash.debounce';
 import { Person } from './types/Person';
+import { DropdownMenu } from './components/DropdownMenu/DropdownMenu';
 
 type Props = {
   debounceDeley: number;
@@ -71,9 +72,11 @@ export const App: React.FC<Props> = ({ debounceDeley = 300 }) => {
     setSelectPeople(people);
     setInputValue(`${people.name}`);
     setAppliedInputValue(people.name);
-    setPreviousInputValue(people.name);
+    previousInputValue.current = people.name;
     setIsFocus(true);
   };
+
+  const shouldShowContent = isFocus && !noMatchingSuggestions && !selectPeople;
 
   return (
     <div className="container">
@@ -95,22 +98,11 @@ export const App: React.FC<Props> = ({ debounceDeley = 300 }) => {
             />
           </div>
 
-          <div className="dropdown-menu" role="menu" data-cy="suggestions-list">
-            {isFocus && !noMatchingSuggestions && !selectPeople && (
-              <div className="dropdown-content">
-                {filteredPeople.map((people, index) => (
-                  <div
-                    key={index}
-                    className="dropdown-item"
-                    data-cy="suggestion-item"
-                    onClick={() => handleSelectPerson(people)}
-                  >
-                    <p className="has-text-link">{people.name}</p>
-                  </div>
-                ))}
-              </div>
-            )}
-          </div>
+          <DropdownMenu
+            handleSelectPerson={handleSelectPerson}
+            shouldShowContent={shouldShowContent}
+            filteredPeople={filteredPeople}
+          />
         </div>
 
         {noMatchingSuggestions && (
