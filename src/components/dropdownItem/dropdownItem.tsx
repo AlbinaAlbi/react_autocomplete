@@ -4,7 +4,7 @@ import { Person } from '../../types/Person';
 type DropdownItemProps = {
   people: Person;
   handleSelectPerson: (people: Person) => void;
-}
+};
 
 export const DropdownItem: React.FC<DropdownItemProps> = ({
   people,
