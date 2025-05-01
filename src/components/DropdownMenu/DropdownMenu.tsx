@@ -20,7 +20,6 @@ export const DropdownMenu: React.FC<DropdownMenuProps> = ({
           {filteredPeople.map((people, index) => (
             <DropdownItem
               key={index}
-              index={index}
               people={people}
               handleSelectPerson={handleSelectPerson}
             />
